@@ -1,0 +1,37 @@
+css/ — Styles for your website
+This folder contains the look and feel of Bootstrap. These files style buttons, layouts, text, etc.
+
+bootstrap.css: Full version, easy to read. Good for learning or development.
+
+bootstrap.min.css: Same as above but minified (smaller and faster). Best for live websites.
+
+bootstrap.rtl.css: For right-to-left languages (like Arabic or Hebrew).
+
+.map files: Help browsers debug CSS by showing original code when using the minified version.
+
+js/ — Makes things interactive
+This folder contains the JavaScript that powers interactive Bootstrap components like:
+
+Modals (popups)
+
+Dropdowns
+
+Tooltips
+
+Offcanvas menus
+
+Files:
+
+bootstrap.bundle.min.js: Includes Bootstrap + Popper.js (which is needed for tooltips, popovers, etc.). This is the one you usually use.
+
+bootstrap.min.js: Bootstrap JavaScript without Popper.
+
+bootstrap.js: Same as above, but not minified (for debugging or learning).
+icons/ (optional, if downloaded separately) — Visual symbols
+If you download Bootstrap Icons, you’ll get this folder. It contains:
+
+bootstrap-icons.css: Lets you use icons with classes like <i class="bi bi-heart"></i>.
+
+Icon font files like .woff, .woff2, and .svg.
+
+These are great for adding visual symbols (like hearts, stars, etc.) to your site without using image files.
