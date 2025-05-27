@@ -1,0 +1,32 @@
+DROP TABLE IF EXISTS Sessions;
+
+CREATE TABLE Sessions (
+    session_id INT PRIMARY KEY,
+    event_id INT,
+    title VARCHAR(200),
+    start_time DATETIME,
+    end_time DATETIME
+);
+
+INSERT INTO Sessions (session_id, event_id, title, start_time, end_time) VALUES
+(1, 1, 'Opening', '2025-06-10 10:00:00', '2025-06-10 11:00:00'),
+(2, 1, 'Web Dev', '2025-06-10 10:30:00', '2025-06-10 12:00:00'),
+(3, 1, 'AI Talk', '2025-06-10 12:30:00', '2025-06-10 13:30:00'),
+(4, 2, 'HTML', '2025-07-01 09:00:00', '2025-07-01 10:00:00');
+
+SELECT 
+    s1.event_id,
+    s1.title AS session1,
+    s2.title AS session2,
+    s1.start_time,
+    s1.end_time,
+    s2.start_time,
+    s2.end_time
+FROM 
+    Sessions s1
+JOIN 
+    Sessions s2 ON s1.event_id = s2.event_id 
+               AND s1.session_id < s2.session_id
+WHERE 
+    s1.start_time < s2.end_time 
+    AND s2.start_time < s1.end_time;

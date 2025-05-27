@@ -1,0 +1,36 @@
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Registrations;
+
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY,
+    full_name VARCHAR(100),
+    registration_date DATE
+);
+
+CREATE TABLE Registrations (
+    registration_id INT PRIMARY KEY,
+    user_id INT,
+    event_id INT
+);
+
+INSERT INTO Users (user_id, full_name, registration_date) VALUES
+(1, 'Alice Johnson', CURDATE() - INTERVAL 10 DAY),
+(2, 'Bob Smith', CURDATE() - INTERVAL 5 DAY),
+(3, 'Charlie Lee', CURDATE() - INTERVAL 3 DAY),
+(4, 'Diana King', CURDATE() - INTERVAL 40 DAY);
+
+INSERT INTO Registrations (registration_id, user_id, event_id) VALUES
+(1, 1, 1),
+(2, 4, 2);
+
+SELECT 
+    u.user_id,
+    u.full_name,
+    u.registration_date
+FROM 
+    Users u
+LEFT JOIN 
+    Registrations r ON u.user_id = r.user_id
+WHERE 
+    u.registration_date >= CURDATE() - INTERVAL 30 DAY
+    AND r.registration_id IS NULL;

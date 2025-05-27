@@ -1,0 +1,37 @@
+DROP TABLE IF EXISTS Feedback;
+DROP TABLE IF EXISTS Events;
+
+CREATE TABLE Events (
+    event_id INT PRIMARY KEY,
+    title VARCHAR(200),
+    city VARCHAR(100)
+);
+
+CREATE TABLE Feedback (
+    feedback_id INT PRIMARY KEY,
+    user_id INT,
+    event_id INT,
+    rating INT
+);
+
+INSERT INTO Events (event_id, title, city) VALUES
+(1, 'Tech Meetup', 'New York'),
+(2, 'AI Conference', 'Chicago'),
+(3, 'Frontend Bootcamp', 'Los Angeles');
+
+INSERT INTO Feedback (feedback_id, user_id, event_id, rating) VALUES
+(1, 1, 1, 4),
+(2, 2, 1, 5),
+(3, 3, 2, 4),
+(4, 4, 2, 3),
+(5, 5, 3, 2);
+
+SELECT 
+    e.city,
+    ROUND(AVG(f.rating), 2) AS average_rating
+FROM 
+    Events e
+JOIN 
+    Feedback f ON e.event_id = f.event_id
+GROUP BY 
+    e.city;
