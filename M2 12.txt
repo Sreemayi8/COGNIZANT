@@ -1,0 +1,48 @@
+DROP TABLE IF EXISTS Sessions;
+DROP TABLE IF EXISTS Events;
+
+CREATE TABLE Events (
+    event_id INT PRIMARY KEY,
+    title VARCHAR(200)
+);
+
+CREATE TABLE Sessions (
+    session_id INT PRIMARY KEY,
+    event_id INT,
+    title VARCHAR(200),
+    start_time DATETIME,
+    end_time DATETIME
+);
+
+INSERT INTO Events (event_id, title) VALUES
+(1, 'Tech Innovators Meetup'),
+(2, 'AI & ML Conference'),
+(3, 'Frontend Bootcamp');
+
+INSERT INTO Sessions (session_id, event_id, title, start_time, end_time) VALUES
+(1, 1, 'Opening', '2025-06-10 10:00:00', '2025-06-10 11:00:00'),
+(2, 1, 'Dev Talk', '2025-06-10 11:30:00', '2025-06-10 12:30:00'),
+(3, 3, 'HTML Basics', '2025-07-01 10:00:00', '2025-07-01 12:00:00');
+
+WITH session_counts AS (
+    SELECT 
+        e.event_id,
+        e.title,
+        COUNT(s.session_id) AS session_count
+    FROM 
+        Events e
+    LEFT JOIN 
+        Sessions s ON e.event_id = s.event_id
+    GROUP BY 
+        e.event_id, e.title
+)
+SELECT 
+    event_id,
+    title,
+    session_count
+FROM 
+    session_counts
+WHERE 
+    session_count = (
+        SELECT MAX(session_count) FROM session_counts
+    );

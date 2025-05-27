@@ -1,0 +1,26 @@
+DROP TABLE IF EXISTS Users;
+
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY,
+    full_name VARCHAR(100),
+    registration_date DATE
+);
+
+INSERT INTO Users (user_id, full_name, registration_date) VALUES
+(1, 'Alice Johnson', CURDATE() - INTERVAL 1 DAY),
+(2, 'Bob Smith', CURDATE() - INTERVAL 2 DAY),
+(3, 'Charlie Lee', CURDATE() - INTERVAL 2 DAY),
+(4, 'Diana King', CURDATE() - INTERVAL 6 DAY),
+(5, 'Ethan Hunt', CURDATE() - INTERVAL 10 DAY);
+
+SELECT 
+    registration_date,
+    COUNT(*) AS user_count
+FROM 
+    Users
+WHERE 
+    registration_date >= CURDATE() - INTERVAL 7 DAY
+GROUP BY 
+    registration_date
+ORDER BY 
+    registration_date DESC;

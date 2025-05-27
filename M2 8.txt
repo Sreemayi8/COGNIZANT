@@ -1,0 +1,45 @@
+DROP TABLE IF EXISTS Sessions;
+DROP TABLE IF EXISTS Events;
+
+CREATE TABLE Events (
+    event_id INT PRIMARY KEY,
+    title VARCHAR(200),
+    description TEXT,
+    city VARCHAR(100),
+    start_date DATETIME,
+    end_date DATETIME,
+    status ENUM('upcoming', 'completed', 'cancelled'),
+    organizer_id INT
+);
+
+CREATE TABLE Sessions (
+    session_id INT PRIMARY KEY,
+    event_id INT,
+    title VARCHAR(200),
+    speaker_name VARCHAR(100),
+    start_time DATETIME,
+    end_time DATETIME
+);
+
+INSERT INTO Events (event_id, title, description, city, start_date, end_date, status, organizer_id) VALUES
+(1, 'Tech Innovators Meetup', 'Tech meetup.', 'New York', '2025-06-10 10:00:00', '2025-06-10 16:00:00', 'upcoming', 1),
+(2, 'AI & ML Conference', 'AI conference.', 'Chicago', '2025-05-15 09:00:00', '2025-05-15 17:00:00', 'completed', 3),
+(3, 'Frontend Bootcamp', 'Frontend training.', 'Los Angeles', '2025-07-01 10:00:00', '2025-07-03 16:00:00', 'upcoming', 2);
+
+INSERT INTO Sessions (session_id, event_id, title, speaker_name, start_time, end_time) VALUES
+(1, 1, 'Opening Keynote', 'Dr. Tech', '2025-06-10 10:00:00', '2025-06-10 11:00:00'),
+(2, 1, 'Web Dev Talk', 'Alice Johnson', '2025-06-10 11:15:00', '2025-06-10 12:30:00'),
+(3, 2, 'AI in Healthcare', 'Charlie Lee', '2025-05-15 09:30:00', '2025-05-15 11:00:00');
+
+SELECT 
+    e.event_id,
+    e.title,
+    COUNT(s.session_id) AS session_count
+FROM 
+    Events e
+LEFT JOIN 
+    Sessions s ON e.event_id = s.event_id
+WHERE 
+    e.status = 'upcoming'
+GROUP BY 
+    e.event_id, e.title;

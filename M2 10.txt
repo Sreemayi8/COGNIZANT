@@ -1,0 +1,52 @@
+DROP TABLE IF EXISTS Feedback;
+DROP TABLE IF EXISTS Registrations;
+DROP TABLE IF EXISTS Events;
+
+CREATE TABLE Events (
+    event_id INT PRIMARY KEY,
+    title VARCHAR(200)
+);
+
+CREATE TABLE Registrations (
+    registration_id INT PRIMARY KEY,
+    user_id INT,
+    event_id INT,
+    registration_date DATE
+);
+
+CREATE TABLE Feedback (
+    feedback_id INT PRIMARY KEY,
+    user_id INT,
+    event_id INT,
+    rating INT,
+    comments TEXT,
+    feedback_date DATE
+);
+
+INSERT INTO Events (event_id, title) VALUES
+(1, 'Tech Innovators Meetup'),
+(2, 'AI & ML Conference'),
+(3, 'Frontend Bootcamp');
+
+INSERT INTO Registrations (registration_id, user_id, event_id, registration_date) VALUES
+(1, 1, 1, '2025-05-01'),
+(2, 2, 1, '2025-05-02'),
+(3, 3, 2, '2025-05-03'),
+(4, 4, 3, '2025-05-04');
+
+INSERT INTO Feedback (feedback_id, user_id, event_id, rating, comments, feedback_date) VALUES
+(1, 1, 1, 4, 'Good', '2025-05-05');
+
+SELECT 
+    e.event_id,
+    e.title
+FROM 
+    Events e
+JOIN 
+    Registrations r ON e.event_id = r.event_id
+LEFT JOIN 
+    Feedback f ON e.event_id = f.event_id
+GROUP BY 
+    e.event_id, e.title
+HAVING 
+    COUNT(f.feedback_id) = 0;

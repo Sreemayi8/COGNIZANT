@@ -1,0 +1,44 @@
+DROP TABLE IF EXISTS Resources;
+DROP TABLE IF EXISTS Events;
+
+CREATE TABLE Events (
+    event_id INT PRIMARY KEY,
+    title VARCHAR(200),
+    description TEXT,
+    city VARCHAR(100),
+    start_date DATETIME,
+    end_date DATETIME,
+    status ENUM('upcoming', 'completed', 'cancelled'),
+    organizer_id INT
+);
+
+CREATE TABLE Resources (
+    resource_id INT PRIMARY KEY,
+    event_id INT,
+    resource_type ENUM('pdf', 'image', 'link'),
+    resource_url VARCHAR(255),
+    uploaded_at DATETIME
+);
+
+INSERT INTO Events (event_id, title, description, city, start_date, end_date, status, organizer_id) VALUES
+(1, 'Tech Innovators Meetup', 'A meetup for tech enthusiasts.', 'New York', '2025-06-10 10:00:00', '2025-06-10 16:00:00', 'upcoming', 1),
+(2, 'AI & ML Conference', 'AI and ML Conference.', 'Chicago', '2025-05-15 09:00:00', '2025-05-15 17:00:00', 'completed', 3),
+(3, 'Frontend Development Bootcamp', 'Frontend Bootcamp.', 'Los Angeles', '2025-07-01 10:00:00', '2025-07-03 16:00:00', 'upcoming', 2);
+
+INSERT INTO Resources (resource_id, event_id, resource_type, resource_url, uploaded_at) VALUES
+(1, 1, 'pdf', 'https://portal.com/resources/tech_meetup_agenda.pdf', '2025-05-01 10:00:00'),
+(2, 2, 'image', 'https://portal.com/resources/ai_poster.jpg', '2025-04-20 09:00:00'),
+(3, 3, 'link', 'https://portal.com/resources/html5_docs', '2025-06-25 15:00:00');
+
+SELECT 
+    e.event_id,
+    e.title,
+    SUM(r.resource_type = 'pdf') AS pdf_count,
+    SUM(r.resource_type = 'image') AS image_count,
+    SUM(r.resource_type = 'link') AS link_count
+FROM 
+    Events e
+LEFT JOIN 
+    Resources r ON e.event_id = r.event_id
+GROUP BY 
+    e.event_id, e.title;
