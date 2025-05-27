@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fixed Footer Example</title>
+  <style>
+    body {
+      margin: 0;
+      padding-bottom: 50px; /* space for the fixed footer */
+      font-family: Arial, sans-serif;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background-color: #333;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      z-index: 1000; /* ensure footer is on top */
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <h1>Content on the page</h1>
+    <p>Scroll down and you will always see the footer fixed at the bottom.</p>
+    <p>More content here...</p>
+    <p style="margin-bottom: 800px;">(Extra space to allow scrolling)</p>
+  </div>
+
+  <footer class="footer">
+    Fixed Footer Content
+  </footer>
+
+</body>
+</html>

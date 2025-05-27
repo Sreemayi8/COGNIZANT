@@ -1,0 +1,19 @@
+To customize Bootstrap’s primary color and border radius using Sass:
+
+Create a _variables.scss file with your custom values, e.g.:
+
+scss
+Copy
+Edit
+$primary: #ff5722;
+$border-radius: 1.5rem;
+In your main Sass file (e.g., custom.scss), first import Bootstrap’s functions, then your _variables.scss, then the rest of Bootstrap:
+
+scss
+Copy
+Edit
+@import "../node_modules/bootstrap/scss/functions";
+@import "variables";           // your overrides
+@import "../node_modules/bootstrap/scss/bootstrap";
+Compile custom.scss with Sass — your custom variables will override Bootstrap’s defaults during compilation.
+

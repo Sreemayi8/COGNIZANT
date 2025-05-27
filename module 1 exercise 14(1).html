@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Responsive Display</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+</head>
+<body>
+
+<div class="container py-5">
+
+  <!-- Hidden on all screens -->
+  <div class="bg-secondary text-white p-3 d-none">
+    This is always hidden (d-none).
+  </div>
+
+  <!-- Visible only on medium (md) and larger screens -->
+  <div class="bg-primary text-white p-3 mt-3 d-none d-md-block">
+    Visible on md and larger (d-md-block).
+  </div>
+
+  <!-- Flexbox layout, only on large (lg) and up -->
+  <div class="bg-warning text-dark p-3 mt-3 d-none d-lg-flex justify-content-between">
+    <div>Visible only on lg and up (d-lg-flex)</div>
+    <div>Flex layout active</div>
+  </div>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
